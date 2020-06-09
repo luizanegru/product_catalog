@@ -31,11 +31,14 @@ To obtain authentication token you need to make a request to:
 
 * Authorization: Bearer token 
 
+<br>
 
 * ***Get a list with all products:***
 ```bash
 [GET] /products/read
 ```
+<br>
+
 * ***Create a new product:***
 ```bash
 [POST] /products/create
@@ -44,6 +47,7 @@ To obtain authentication token you need to make a request to:
         - price (double)
         - category (string)
  ```
+ <br>
 
 * ***Delete a product:***
 ```bash
@@ -52,7 +56,6 @@ To obtain authentication token you need to make a request to:
         - productId (integer)
 ```
 <br>
-<\br>
 
 * ***Update a product:***
 ```bash
