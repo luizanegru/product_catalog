@@ -18,10 +18,12 @@ Apache
 
 * Authentication:
 To obtain authentication token you need to make a request to:
+```bash
 [POST] /login
     Params:
         - email
         - password
+ ```
 
 * Note: You can find the email & password in the database in users table
 
