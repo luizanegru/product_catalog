@@ -1,4 +1,4 @@
-### Product Catalog
+# Product Catalog
 
 ## Requirements
 
@@ -29,22 +29,22 @@ After you have the auth token, you have to put it in the header of the request l
 
 Authorization: Bearer <token>
 
-*Get a list with all products:
+* Get a list with all products:
 [GET] /products/read
 
-*Create a new product
+* Create a new product
 [POST] /products/create
     Params:
         - name (string)
         - price (double)
         - category (string)
 
-*Delete a product
+* Delete a product
 [POST] /products/delete
     Params:
         - productId (integer)
 
-*Update a product
+* Update a product
 [POST] /products/update
     Params:
         - productId
