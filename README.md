@@ -47,7 +47,7 @@ Authorization: Bearer <token>
 ```bash
 [POST] /products/delete
     Params:
-        * productId (integer)
+        - productId (integer)
 ```
 
 * Update a product
