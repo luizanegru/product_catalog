@@ -42,7 +42,7 @@ Authorization: Bearer <token>
 * Delete a product
 [POST] /products/delete
     Params:
-        - productId (integer)
+        * productId (integer)
 
 * Update a product
 [POST] /products/update
