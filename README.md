@@ -41,14 +41,14 @@ Authorization: Bearer <token>
         - name (string)
         - price (double)
         - category (string)
-        ```
+ ```
 
 * Delete a product
 ```bash
 [POST] /products/delete
     Params:
         * productId (integer)
-        ```
+```
 
 * Update a product
 ```bash
