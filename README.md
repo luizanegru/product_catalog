@@ -29,7 +29,7 @@ To obtain authentication token you need to make a request to:
 
 * After you have the auth token, you have to put it in the header of the request like this:
 
-* Authorization: Bearer token<br>
+* Authorization: Bearer token<br/>
 
 
 
