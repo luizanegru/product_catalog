@@ -27,9 +27,12 @@ To obtain authentication token you need to make a request to:
 
 * Note: You can find the email & password in the database in users table
 
-After you have the auth token, you have to put it in the header of the request like this:
+* After you have the auth token, you have to put it in the header of the request like this:
 
-Authorization: Bearer <token>
+* Authorization: Bearer token
+
+
+
 
 * Get a list with all products:
 ```bash
