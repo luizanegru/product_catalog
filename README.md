@@ -36,7 +36,7 @@ To obtain authentication token you need to make a request to:
 ```bash
 [GET] /products/read
 ```
-* Create a new product
+* **Create a new product:**
 ```bash
 [POST] /products/create
     Params:
@@ -45,14 +45,14 @@ To obtain authentication token you need to make a request to:
         - category (string)
  ```
 
-* **Delete a product**
+* **Delete a product:**
 ```bash
 [POST] /products/delete
     Params:
         - productId (integer)
 ```
 
-* **Update a product**
+* **Update a product:**
 ```bash
 [POST] /products/update
     Params:
