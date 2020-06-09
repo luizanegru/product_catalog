@@ -29,7 +29,7 @@ To obtain authentication token you need to make a request to:
 
 * After you have the auth token, you have to put it in the header of the request like this:
 
-* Authorization: Bearer token__
+* Authorization: Bearer token\
 
 
 
@@ -38,7 +38,6 @@ To obtain authentication token you need to make a request to:
 ```bash
 [GET] /products/read
 ```
-__
 * Create a new product
 ```bash
 [POST] /products/create
