@@ -16,7 +16,7 @@ Apache
 
 ## Endpoints:
 
-* **Authentication:**
+* ***Authentication:***
 To obtain authentication token you need to make a request to:
 ```bash
 [POST] /login
@@ -32,11 +32,11 @@ To obtain authentication token you need to make a request to:
 * Authorization: Bearer token 
 
 
-* **Get a list with all products:**
+* ***Get a list with all products:***
 ```bash
 [GET] /products/read
 ```
-* **Create a new product:**
+* ***Create a new product:***
 ```bash
 [POST] /products/create
     Params:
@@ -45,14 +45,16 @@ To obtain authentication token you need to make a request to:
         - category (string)
  ```
 
-* **Delete a product:**
+* ***Delete a product:***
 ```bash
 [POST] /products/delete
     Params:
         - productId (integer)
 ```
-
-* **Update a product:**
+<br>
+<\br>
+<br\>
+* ***Update a product:***
 ```bash
 [POST] /products/update
     Params:
