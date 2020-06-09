@@ -4,7 +4,7 @@ class User
     //database connection
     private $conn;
     //table name
-    private $table_name = "users";
+    private $tableName = "users";
 
     //constructor
     public function __construct($db)
@@ -22,11 +22,16 @@ class User
     public function login()
     {
         $query = "SELECT u.email, u.password, u.id
-                  FROM " . $this->table_name . " u";
+                  FROM " . $this->tableName . " u";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
-        return $stmt;
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($results)) {
+            return $results;
+        }
+        return null;
     }
 }

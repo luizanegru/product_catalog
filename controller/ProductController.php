@@ -4,14 +4,14 @@ class ProductController
 {
     //objects
     private $product;
-    private $auth_Token;
+    private $authToken;
 
     private $headers;
 
-    public function __construct(Product $product, Auth_Token $auth_Token)
+    public function __construct(Product $product, Auth_Token $authToken)
     {
         $this->product = $product;
-        $this->auth_Token = $auth_Token;
+        $this->authToken = $authToken;
     }
 
     //the method that verifies that it is authenticated
@@ -23,12 +23,10 @@ class ProductController
         $token = !empty($this->headers['Authorization']) ? trim(substr($this->headers['Authorization'], 6)) : null;
 
         //request in the database to take the token
-        $stmt = $this->auth_Token->get_token();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $token_database =  array_values($result)[0];
+        $tokenDataBase = $this->authToken->getToken();
 
         //the token in the header must exist and be the same as in the base date in order to make the request
-        if (!$token || $token !== $token_database) {
+        if (!$token || $token !== $tokenDataBase) {
             http_response_code(401);
             echo json_encode(array("message" => "Unauthorized"));
             exit;
@@ -39,8 +37,8 @@ class ProductController
     public function create()
     {
         $this->isAuthenticated();
-        $this->auth_Token->isRequestLimitExceeded();
-        $this->auth_Token->logRequest(1);
+        $this->authToken->isRequestLimitExceeded();
+        $this->authToken->logRequest(1);
 
         //get the data from user
         $data = $_POST;
@@ -78,22 +76,22 @@ class ProductController
     public function read()
     {
         $this->isAuthenticated();
-        $this->auth_Token->isRequestLimitExceeded();
-        $this->auth_Token->logRequest(1);
+        $this->authToken->isRequestLimitExceeded();
+        $this->authToken->logRequest(1);
 
         $stmt = $this->product->read();
         $num = $stmt->rowCount();
 
         //check if there are products in the database
         if ($num > 0) {
-            $products_arr = array();
-            $products_arr["products"] = array();
+            $productsArray = array();
+            $productsArray["products"] = array();
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 //returns an array indexed by column name
                 extract($row);
 
-                $product_item = array(
+                $productItem = array(
                     "id" => $id,
                     "name" => $name,
                     "price" => $price,
@@ -102,12 +100,12 @@ class ProductController
                     "update_date" => $update_date
                 );
 
-                array_push($products_arr["products"], $product_item);
+                array_push($productsArray["products"], $productItem);
             }
             //200 - OK
             http_response_code(200);
             //products in json format
-            echo json_encode($products_arr);
+            echo json_encode($productsArray);
         } else {
             // set response code - 404 Not found
             http_response_code(404);
@@ -123,8 +121,8 @@ class ProductController
     public function update()
     {
         $this->isAuthenticated();
-        $this->auth_Token->isRequestLimitExceeded();
-        $this->auth_Token->logRequest(1);
+        $this->authToken->isRequestLimitExceeded();
+        $this->authToken->logRequest(1);
 
         //get the data from user
         $data = $_POST;
@@ -135,7 +133,6 @@ class ProductController
         $this->product->category = array_values($data)[3];
         $this->product->update_date = date('Y-m-d H:i:s');
 
-        var_dump($this->product->update_date);
         if ($this->product->update()) {
             // set response code - 200 ok
             http_response_code(200);
@@ -154,8 +151,8 @@ class ProductController
     public function delete()
     {
         $this->isAuthenticated();
-        $this->auth_Token->isRequestLimitExceeded();
-        $this->auth_Token->logRequest(1);
+        $this->authToken->isRequestLimitExceeded();
+        $this->authToken->logRequest(1);
 
         //get the id from the user
         $data = $_POST;

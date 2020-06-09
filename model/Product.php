@@ -4,7 +4,7 @@ class Product
     //database connection
     private $conn;
     //table name
-    private $table_name = "products";
+    private $tableName = "products";
 
     //properties
     public $id;
@@ -24,7 +24,7 @@ class Product
     public function read()
     {
         $query = "SELECT p.id, p.name, p.price, p.category, p.create_date, p.update_date
-                  FROM " . $this->table_name . " p 
+                  FROM " . $this->tableName . " p 
                   ORDER BY p.update_date";
 
         $stmt = $this->conn->prepare($query);
@@ -39,7 +39,7 @@ class Product
     {
 
         $query = "INSERT INTO
-                " . $this->table_name . "
+                " . $this->tableName . "
             (name, price, category, create_date, update_date)
             VALUES(:name, :price, :category, :create_date, :update_date)";
 
@@ -70,7 +70,7 @@ class Product
     {
         // update query
         $query = "UPDATE
-                " . $this->table_name . "
+                " . $this->tableName . "
                 SET
                     name= :name, 
                     price=:price, 
@@ -109,7 +109,7 @@ class Product
     //delete a product by id
     public function delete()
     {
-        $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
+        $query = "DELETE FROM " . $this->tableName . " WHERE id = :id";
 
         $stmt = $this->conn->prepare($query);
 

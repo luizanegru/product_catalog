@@ -4,7 +4,7 @@ class Auth_Token
     //database connection
     private $conn;
     //table name
-    private $table_name = "auth_token";
+    private $tableName = "auth_token";
 
 
     //properties
@@ -23,7 +23,7 @@ class Auth_Token
     public function verification()
     {
         $query = "SELECT *
-                  FROM " . $this->table_name . " ";
+                  FROM " . $this->tableName . " ";
 
 
         $stmt = $this->conn->prepare($query);
@@ -46,7 +46,7 @@ class Auth_Token
     public function create_token($user_id)
     {
         $query = "INSERT INTO
-                " . $this->table_name . "
+                " . $this->tableName . "
             (user_id, token, expiration, last_request_at)
             VALUES(:user_id, :token, :expiration, :last_request_at)";
 
@@ -83,7 +83,7 @@ class Auth_Token
     {
         // update query
         $query = "UPDATE
-                    " . $this->table_name . "
+                    " . $this->tableName . "
                  SET
                     token=:token,
                     expiration=:expiration,
@@ -118,30 +118,42 @@ class Auth_Token
         return false;
     }
 
-    public function get_token()
+    public function getToken()
     {
         $query = "SELECT auth.token
-                  FROM " . $this->table_name . " auth";
+                  FROM " . $this->tableName . " auth";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt;
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($results)) {
+            return $results[0]['token'];
+        }
+
+        return null;
     }
 
     public function getLastRequest()
     {
-        $query = "SELECT auth.last_request_at
-                  FROM " . $this->table_name . " auth";
+        $query = "SELECT last_request_at
+                  FROM " . $this->tableName;
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt;
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($results)) {
+            return $results[0]['last_request_at'];
+        }
+
+        return null;
     }
 
     public function logRequest($user_id)
     {
         $query = "UPDATE
-                " . $this->table_name . "
+                " . $this->tableName . "
                  SET
                     last_request_at=:last_request_at
                  WHERE
@@ -169,15 +181,14 @@ class Auth_Token
         $currentDate = date('Y-m-d H:i:s');
 
         //the date of the user's last request
-        $stmt = $this->getLastRequest();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $last_request =  array_values($result)[0];
+        $lastRequest = $this->getLastRequest();
+
 
         //the difference between the last and the current request
-        $seconds = strtotime($currentDate) - strtotime($last_request);
+        $seconds = strtotime($currentDate) - strtotime($lastRequest);
 
-        //if the time between the two is less than 30 s then the request cannot be made
-        if ($seconds < 30) {
+        //if the time between the two is less than 5 s then the request cannot be made
+        if ($seconds < 5) {
             http_response_code(401);
             echo json_encode(array("message" => "Number of requests is exceeded"));
             exit;
