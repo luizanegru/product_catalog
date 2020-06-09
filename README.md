@@ -53,7 +53,7 @@ To obtain authentication token you need to make a request to:
 ```
 <br>
 <\br>
-<br\>
+
 * ***Update a product:***
 ```bash
 [POST] /products/update
